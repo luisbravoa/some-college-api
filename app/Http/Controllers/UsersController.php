@@ -21,9 +21,9 @@ class UsersController extends Controller
     {
         $user = User::where(['email' => $request->get('email'), 'password' => $request->get('password')])->first();
 
-        return [
-            'api_token' => $user->api_token
-        ];
+        $user->load('courses.periods');
+
+        return $user;
     }
 
     public function index()
@@ -82,18 +82,18 @@ class UsersController extends Controller
             $periods[] = $period->toArray();
         }
 
-        foreach ($user->courses as $course) {
-            foreach ($course->periods as $period) {
+        foreach ($user->courses as $c) {
+            foreach ($c->periods as $period) {
                 $periods[] = $period->toArray();
             }
         }
-
-
+        
         if (!Course::checkSchedule($periods)) {
             return $this->respondWithError(['periods' => 'There is a conflict with the times!']);
         }
 
-        $user->courses()->save($course);
+        $user->courses()->attach($course->id);
+        $user->save();
 
         $user->load('courses.periods');
         return $user;

@@ -126,14 +126,6 @@ class populate extends Command
                 ]
             ],
             [
-                'name' => '',
-                'description' => '',
-                'periods' => [
-                    ['day' => 1, 'start' => 16, 'end' => 18],
-                    ['day' => 3, 'start' => 13, 'end' => 16]
-                ]
-            ],
-            [
                 'name' => 'Signals, Systems & Control',
                 'description' => 'Discrete-time signals & systems, system properties (linearity, time-invariance, memory, causality, stability), sampling & reconstruction, A/D and D/A converters, DFT/FFT, z transform, stochastic processes, frequency-selective filters, effect of feedback, introduction to control.',
                 'periods' => [
